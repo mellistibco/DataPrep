@@ -2,6 +2,7 @@
   "name": "tibco-preprocess-data",
   "version": "0.0.1",
   "type": "flogo:activity",
+  "ref": "github.com/mellistibco/DataPrep/HumanActivity/PreProcessData",
   "description": "Preprocess data as required for activity deep learning model.",
   "author": "Your Name <you.name@example.org>",
   "inputs":[
