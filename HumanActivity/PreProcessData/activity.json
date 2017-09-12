@@ -1,5 +1,5 @@
 {
-  "name": "PreProcessData",
+  "name": "tibco-preprocess-data",
   "version": "0.0.1",
   "type": "flogo:activity",
   "description": "Preprocess data as required for activity deep learning model.",
