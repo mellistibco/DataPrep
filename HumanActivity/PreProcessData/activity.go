@@ -1,9 +1,14 @@
 package PreProcessData
 
 import (
+	"encoding/csv"
+	"io"
+	"io/ioutil"
+	"log"
 	"math"
 	"sort"
 	"strconv"
+	"strings"
 
 	"github.com/TIBCOSoftware/flogo-lib/core/activity"
 )
@@ -127,7 +132,7 @@ func stats(data [][]float64) map[string]float64 {
 func readCSV(fileName string) [][]float64 {
 	var data [][]float64
 	dat, err := ioutil.ReadFile(fileName)
-	check(err)
+
 	r := csv.NewReader(strings.NewReader(string(dat)))
 
 	for {
