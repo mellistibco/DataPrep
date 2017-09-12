@@ -1,13 +1,8 @@
 package PreProcessData
 
 import (
-	"encoding/csv"
 	"fmt"
-	"io"
 	"io/ioutil"
-	"log"
-	"strconv"
-	"strings"
 	"testing"
 
 	"github.com/TIBCOSoftware/flogo-contrib/action/flow/test"
@@ -20,35 +15,6 @@ func check(e error) {
 	if e != nil {
 		panic(e)
 	}
-}
-
-//Read sample CSV data.  Results are row-based which emulates the expected input form
-func readCSV() [][]float64 {
-	var data [][]float64
-	dat, err := ioutil.ReadFile("wism_3_activities_one_sample.csv")
-	check(err)
-	r := csv.NewReader(strings.NewReader(string(dat)))
-
-	for {
-		record, err := r.Read()
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			log.Fatal(err)
-		}
-		var numbers []float64
-
-		for _, elem := range record {
-			i, err := strconv.ParseFloat(elem, 64)
-			if err == nil {
-				numbers = append(numbers, i)
-			}
-		}
-		data = append(data, []float64(numbers))
-	}
-
-	return data
 }
 
 func getActivityMetadata() *activity.Metadata {
@@ -90,9 +56,7 @@ func TestEval(t *testing.T) {
 
 	//setup attrs
 
-	data := readCSV()
-
-	tc.SetInput("data", data)
+	tc.SetInput("file", "/Users/mellis/Downloads/PreProcessData/HumanActivity/wism_3_activities_one_sample.csv")
 	act.Eval(tc)
 
 	//check result attr
