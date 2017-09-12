@@ -132,7 +132,9 @@ func stats(data [][]float64) map[string]float64 {
 func readCSV(fileName string) [][]float64 {
 	var data [][]float64
 	dat, err := ioutil.ReadFile(fileName)
-
+	if err != nil {
+		return nil
+	}
 	r := csv.NewReader(strings.NewReader(string(dat)))
 
 	for {
@@ -165,6 +167,9 @@ func (a *MyActivity) Eval(context activity.Context) (done bool, err error) {
 	file := context.GetInput("file").(string)
 
 	data := readCSV(file)
+	if data == nil {
+		return false, nil
+	}
 
 	m := stats(data)
 	outStr := ""
