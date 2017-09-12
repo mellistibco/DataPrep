@@ -4,14 +4,16 @@ import (
 	"encoding/csv"
 	"io"
 	"io/ioutil"
-	"log"
 	"math"
 	"sort"
 	"strconv"
 	"strings"
 
 	"github.com/TIBCOSoftware/flogo-lib/core/activity"
+	"github.com/TIBCOSoftware/flogo-lib/logger"
 )
+
+var log = logger.GetLogger("activity-tibco-dataprep")
 
 // MyActivity is a stub for your Activity implementation
 type MyActivity struct {
@@ -143,7 +145,7 @@ func readCSV(fileName string) [][]float64 {
 			break
 		}
 		if err != nil {
-			log.Fatal(err)
+			log.Error(err)
 		}
 		var numbers []float64
 
@@ -170,6 +172,8 @@ func (a *MyActivity) Eval(context activity.Context) (done bool, err error) {
 	if data == nil {
 		return false, nil
 	}
+
+	log.Debug("Parse CSV completed.")
 
 	m := stats(data)
 	outStr := ""
